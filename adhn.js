@@ -32,7 +32,7 @@ $(".title:has(.comhead)").each(function() {
         $.ajax({
             url: "http://clipped.me/algorithm/clippedapi.php?url=" + link,
             dataType: "json",
-            success: function(result) { subrow.children(".sumtext").html("- " + result.summary.join("<br>- ")); },
+            success: function(result) { subrow.children(".sumtext").html(result.summary.join("<br>")); },
             error: function() { subrow.children(".sumtext").text("Unable to generate a summary for this content -- sorry!"); }
         });
     });
