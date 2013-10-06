@@ -4,13 +4,9 @@
 // @description Adds inline article summaries to the HN front page
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
 // @require     http://courses.ischool.berkeley.edu/i290-4/f09/resources/gm_jq_xhr.js
-// @include     http://news.ycombinator.com/
-// @include     https://news.ycombinator.com/
-// @include     http://news.ycombinator.com/x*
-// @include     https://news.ycombinator.com/x*
-// @include     http://news.ycombinator.com/news
-// @include     https://news.ycombinator.com/news
-// @version     1.1
+// @include     http://news.ycombinator.com/*
+// @include     https://news.ycombinator.com/*
+// @version     1.2
 // ==/UserScript==
 
 // Big thanks to clipped.me for the API!
