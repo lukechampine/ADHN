@@ -8,17 +8,17 @@
 // @include     https://news.ycombinator.com/
 // @include     http://news.ycombinator.com/news
 // @include     https://news.ycombinator.com/news
-// @version     1.0
+// @version     1.1
 // ==/UserScript==
 
 // Big thanks to clipped.me for the API!
 
 $(".title:has(.comhead)").each(function() {
-    var link = $(this).find("a").attr("href");
-    var subrow  = $(this).parent().next().find(".subtext");
+    var link = $(this).children("a").attr("href");
+    var subrow  = $(this).parent().next().children(".subtext");
     // add text
     subrow.append(" | <span class=\"sumid\">summary</span>");
-    var sumid = subrow.find(".sumid");
+    var sumid = subrow.children(".sumid");
     // add mouseover effects
     sumid.hover(function() {
         $(this).css("text-decoration", "underline");
@@ -29,18 +29,18 @@ $(".title:has(.comhead)").each(function() {
     });
     // load the summary on the first click (and only the first click)
     sumid.one("click", function() {
-        sumid.parent().append("<div class=\"sumtext\">loading...</div>");
+        subrow.append("<div class=\"sumtext\">loading...</div>");
         $.ajax({
             url: "http://clipped.me/algorithm/clippedapi.php?url=" + link,
             dataType: "json",
-            success: function(result) { subrow.find(".sumtext").text(result.summary.join(' ')); },
-            error: function() { subrow.find(".sumtext").text("Unable to generate a summary for this content -- sorry!"); }
+            success: function(result) { subrow.children(".sumtext").text(result.summary.join(" ")); },
+            error: function() { subrow.children(".sumtext").text("Unable to generate a summary for this content -- sorry!"); }
         });
     });
     // on subsequent clicks, toggle the summary
     sumid.toggle(function() {
-        subrow.find(".sumtext").css("display", "");
+        subrow.children(".sumtext").css("display", "");
     }, function() {
-        subrow.find(".sumtext").css("display", "none");
+        subrow.children(".sumtext").css("display", "none");
     });
 });
