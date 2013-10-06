@@ -6,11 +6,12 @@
 // @require     http://courses.ischool.berkeley.edu/i290-4/f09/resources/gm_jq_xhr.js
 // @include     http://news.ycombinator.com/*
 // @include     https://news.ycombinator.com/*
-// @version     1.2
+// @version     1.6
 // ==/UserScript==
 
 // Big thanks to clipped.me for the API!
 
+// individual posts summaries
 $(".title:has(.comhead)").each(function() {
     var link = $(this).children("a").attr("href");
     var subrow  = $(this).parent().next().children(".subtext");
@@ -27,7 +28,7 @@ $(".title:has(.comhead)").each(function() {
     });
     // load the summary on the first click (and only the first click)
     sumid.one("click", function() {
-        subrow.append("<div class=\"sumtext\">loading...</div>");
+        subrow.append("<div class=\"sumtext\" visible=\"false\">loading...</div>");
         $.ajax({
             url: "http://clipped.me/algorithm/clippedapi.php?url=" + link,
             dataType: "json",
@@ -36,9 +37,44 @@ $(".title:has(.comhead)").each(function() {
         });
     });
     // on subsequent clicks, toggle the summary
-    sumid.toggle(function() {
-        subrow.children(".sumtext").fadeIn("medium");
-    }, function() {
-        subrow.children(".sumtext").fadeOut("medium");
+    sumid.click(function() {
+        if (subrow.children(".sumtext").attr("visible") == "false") {
+            subrow.children(".sumtext").fadeIn("medium");
+            subrow.children(".sumtext").attr("visible", "true");
+        }
+        else {
+            subrow.children(".sumtext").fadeOut("medium");
+            subrow.children(".sumtext").attr("visible", "false");
+        }
+    });
+});
+
+// expand/collapse all
+// text
+$(".pagetop").append(" | <span class=\"sumall\">summarize all</span>");
+// mouseover effects
+$(".sumall").hover(function() {
+    $(this).css("cursor", "pointer");
+}, function() {
+    $(this).css("cursor", "auto");
+});
+// first click
+$(".sumall").one("click", function() {
+    $(".sumid").each(function() {
+        $(this).trigger("click");
+    });
+});
+// subsequent clicks
+$(".sumall").toggle(function() {
+    $(this).text("hide summaries");
+    $(".sumtext").each(function() {
+        $(this).fadeIn("medium");
+        $(this).attr("visible", "true");
+    });
+}, function() {
+    $(this).text("summarize all");
+    $(".sumtext").each(function() {
+        $(this).fadeOut("medium");
+        $(this).attr("visible", "false");
     });
 });
