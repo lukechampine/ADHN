@@ -37,8 +37,8 @@ $(".title:has(.comhead)").each(function() {
     });
     // on subsequent clicks, toggle the summary
     sumid.toggle(function() {
-        subrow.children(".sumtext").css("display", "");
+        subrow.children(".sumtext").fadeIn("medium");
     }, function() {
-        subrow.children(".sumtext").css("display", "none");
+        subrow.children(".sumtext").fadeOut("medium");
     });
 });
