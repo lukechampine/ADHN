@@ -6,6 +6,8 @@
 // @require     http://courses.ischool.berkeley.edu/i290-4/f09/resources/gm_jq_xhr.js
 // @include     http://news.ycombinator.com/
 // @include     https://news.ycombinator.com/
+// @include     http://news.ycombinator.com/x*
+// @include     https://news.ycombinator.com/x*
 // @include     http://news.ycombinator.com/news
 // @include     https://news.ycombinator.com/news
 // @version     1.1
