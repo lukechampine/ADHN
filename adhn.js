@@ -4,6 +4,8 @@
 // @description Adds inline article summaries to the HN front page
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
 // @require     http://courses.ischool.berkeley.edu/i290-4/f09/resources/gm_jq_xhr.js
+// @include     http://news.ycombinator.com/
+// @include     https://news.ycombinator.com/
 // @include     http://news.ycombinator.com/news
 // @include     https://news.ycombinator.com/news
 // @version     1.0
@@ -27,11 +29,12 @@ $(".title:has(.comhead)").each(function() {
     });
     // load the summary on the first click (and only the first click)
     sumid.one("click", function() {
+        sumid.parent().append("<div class=\"sumtext\">loading...</div>");
         $.ajax({
             url: "http://clipped.me/algorithm/clippedapi.php?url=" + link,
             dataType: "json",
-            success: function(result) { sumid.parent().append("<div class=\"sumtext\">" + result.summary.join(' ')) + "</div>"; },
-            error: function() { sumid.parent().append("<div class=\"sumtext\">Unable to generate a summary for this content -- sorry!</div>"); }
+            success: function(result) { subrow.find(".sumtext").text(result.summary.join(' ')); },
+            error: function() { subrow.find(".sumtext").text("Unable to generate a summary for this content -- sorry!"); }
         });
     });
     // on subsequent clicks, toggle the summary
