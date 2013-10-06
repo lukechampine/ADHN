@@ -51,7 +51,7 @@ $(".title:has(.comhead)").each(function() {
 
 // expand/collapse all
 // text
-$(".pagetop").append(" | <span class=\"sumall\">summarize all</span>");
+$(".pagetop:first").append(" | <span class=\"sumall\">summarize all</span>");
 // mouseover effects
 $(".sumall").hover(function() {
     $(this).css("cursor", "pointer");
